@@ -2,17 +2,20 @@ package main
 
 import (
   "os"
-  "io"
+  "fmt"
   "net/http"
-  "os/exec"
+  wol "github.com/sabhiram/go-wol"
 )
 
 func wol(w http.ResponseWriter, r *http.Request) {
-  out, err := exec.Command("/usr/bin/wakeonlan", r.URL.Query().Get("mac")).Output()
+  macAddr = r.URL.Query().Get("mac")
+  
+  err = wol.SendMagicPacket(macAddr, "255.255.255.255:9", "")
+  
   if err != nil {
-          io.WriteString(w, "An error occurred")
+    fmt.Fprintf(w, "ERROR: %s\n", err.Error())
   } else {
-          io.WriteString(w, string(out[:]))
+    fmt.Fprintf("Magic packet sent successfully to %s\n", macAddr)
   }
 }
 
