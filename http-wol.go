@@ -2,13 +2,13 @@ package main
 
 import (
   "bytes"
-	"encoding/binary"
-	"errors"
-	"fmt"
-	"net"
+  "encoding/binary"
+  "errors"
+  "fmt"
+  "net"
   "net/http"
   "os"
-	"regexp"
+  "regexp"
 )
 
 func main() {
