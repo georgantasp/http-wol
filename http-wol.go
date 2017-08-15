@@ -7,20 +7,20 @@ import (
   wol "github.com/sabhiram/go-wol"
 )
 
-func wol(w http.ResponseWriter, r *http.Request) {
-  macAddr = r.URL.Query().Get("mac")
+func sendWol(w http.ResponseWriter, r *http.Request) {
+  macAddr := r.URL.Query().Get("mac")
   
-  err = wol.SendMagicPacket(macAddr, "255.255.255.255:9", "")
+  err := wol.SendMagicPacket(macAddr, "255.255.255.255:9", "")
   
   if err != nil {
     fmt.Fprintf(w, "ERROR: %s\n", err.Error())
   } else {
-    fmt.Fprintf("Magic packet sent successfully to %s\n", macAddr)
+    fmt.Fprintf(w, "Magic packet sent successfully to %s\n", macAddr)
   }
 }
 
 func main() {
   mux := http.NewServeMux()
-  mux.HandleFunc("/", wol)
+  mux.HandleFunc("/", sendWol)
   http.ListenAndServe(":" + os.Args[1], mux)
 }
