@@ -20,7 +20,7 @@ func main() {
 func sendWol(w http.ResponseWriter, r *http.Request) {
   macAddr := r.URL.Query().Get("mac")
   
-  err := wol.SendMagicPacket(macAddr, "255.255.255.255:9", "")
+  err := SendMagicPacket(macAddr, "255.255.255.255:9", "")
   
   if err != nil {
     fmt.Fprintf(w, "ERROR: %s\n", err.Error())
