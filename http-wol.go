@@ -20,6 +20,7 @@ func main() {
 func sendWol(w http.ResponseWriter, r *http.Request) {
   macAddr := r.URL.Query().Get("mac")
   
+  fmt.Println("Sending Packet");
   err := SendMagicPacket(macAddr, "255.255.255.255:9", "")
   
   if err != nil {
